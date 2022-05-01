@@ -12,30 +12,29 @@ public class Updater implements ActionListener
     private JLabel eventform = new JLabel("Event Form");
     private JLabel eventlabel = new JLabel("Event:");
     private JTextField  eventfield = new JTextField();
-    private JLabel timelabel = new JLabel("Time Length:");
-    private JTextField  timefield = new JTextField("in mins");
+    private JLabel durationlabel = new JLabel("Duration:");
+    private JTextField  durationfield = new JTextField("in mins");
     private JLabel prioritylabel = new JLabel("Priority:");
-    Integer[] prioritynum = {1,2,3,4,5,6};
-    private JComboBox<Integer> prioritydropdownBox = new JComboBox<>(prioritynum);
+    private String[] prioritynum = {"1","2","3","4","5","6"};
+    private JComboBox<String> prioritydropdownBox = new JComboBox<>(prioritynum);
     private JButton ubutton = new JButton("Update");
-    //private String[] data = new String[3];
 
     public Updater(){
         panel.add(ubutton);
         ubutton.addActionListener(this);
         panel.add(eventform);
         panel.add(eventlabel);
-        panel.add(timelabel);
+        panel.add(durationlabel);
         panel.add(prioritylabel);
         panel.add(eventfield);
-        panel.add(timefield);
+        panel.add(durationfield);
         panel.add(prioritydropdownBox);
         eventform.setBounds(200,50,100,75);
         eventlabel.setBounds(125,150,75,25);
-        timelabel.setBounds(125,200,75,25);
+        durationlabel.setBounds(125,200,75,25);
         prioritylabel.setBounds(125,250,75,25);
         eventfield.setBounds(210,150,200,25);
-        timefield.setBounds(210,200,100,25);
+        durationfield.setBounds(210,200,100,25);
         prioritydropdownBox.setBounds(210,250,50,25);
         ubutton.setBounds(180,300,100,25);
         panel.setLayout(null);
@@ -50,10 +49,15 @@ public class Updater implements ActionListener
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()== ubutton){
             new Menu();
+            // String eventtext = eventfield.getText();
+            // String durationtext = durationfield.getText();
             frame.dispose();
+
         }
         if(e.getSource()== prioritydropdownBox){
             System.out.println(prioritydropdownBox.getSelectedIndex());
+            // Integer prioritydroptext = prioritydropdownBox.getSelectedIndex();
+
         }
         
     }
