@@ -45,19 +45,31 @@ public class Updater implements ActionListener
         frame.setVisible(true);
     }
 
+    public String geteventtexString(){
+        String eventtext = eventfield.getText();
+        return eventtext;
+        
+    }
+    public String getdurationtexString(){
+        String durationtext = durationfield.getText();
+        return durationtext;
+        
+    }
+    public String getpriorString(){
+        String prioritydroptext = (String) prioritydropdownBox.getSelectedItem();
+        return prioritydroptext;
+        
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()== ubutton){
             new Menu();
-            // String eventtext = eventfield.getText();
-            // String durationtext = durationfield.getText();
             frame.dispose();
 
         }
         if(e.getSource()== prioritydropdownBox){
             System.out.println(prioritydropdownBox.getSelectedIndex());
-            // Integer prioritydroptext = prioritydropdownBox.getSelectedIndex();
-
         }
         
     }

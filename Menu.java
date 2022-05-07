@@ -14,7 +14,7 @@ public class Menu implements ActionListener
     private JPanel tablepanel = new JPanel();
     private JButton ebutton = new JButton("Edit");
     private String[] columns = {"Event","Duration","Time Slot"};
-    private Object[][] data = {{"Men's Rugby","120","10:00"},{"Womens hockey","100","15:00"}};
+    private Object[][] data = {{"Men's Rugby","120","10:00"},{"Womens hockey","100","15:00"},{"Womens hockey","100","15:00"}};
     private JTable  timetable = new JTable(data,columns);
     //private JScrollPane jsp = new JScrollPane(timetable);
     public Menu(){
@@ -30,7 +30,7 @@ public class Menu implements ActionListener
         ebutton.addActionListener(this);
         ebutton.setBounds(180,0,100,25);
         bpanel.setLayout(null);
-    //     frame.setContentPane(tablepanel);
+//     frame.setContentPane(tablepanel);
         tablepanel.setBounds(0,0,450,350);
         bpanel.setBounds(0,400,500,100);
         frame.add(bpanel);
