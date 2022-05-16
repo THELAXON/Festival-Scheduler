@@ -7,17 +7,18 @@ import java.awt.event.ActionListener;
 
 public class Updater implements ActionListener
 {
+
     private JFrame frame = new JFrame("Festival Scheduling Updater");
     private JPanel panel = new JPanel();
     private JLabel eventform = new JLabel("Event Form");
     private JLabel eventlabel = new JLabel("Event:");
-    private JTextField  eventfield = new JTextField();
+    private static JTextField  eventfield = new JTextField();
     private JLabel durationlabel = new JLabel("Duration:");
-    private JTextField  durationfield = new JTextField("in mins");
+    private static JTextField  durationfield = new JTextField("in mins");
     private JLabel prioritylabel = new JLabel("Priority:");
-    private String[] prioritynum = {"1","2","3","4","5","6"};
-    private JComboBox<String> prioritydropdownBox = new JComboBox<>(prioritynum);
-    private JButton ubutton = new JButton("Update");
+    private static String[] prioritynum = {"1","2","3","4","5","6"};
+    private static JComboBox<String> prioritydropdownBox = new JComboBox<>(prioritynum);
+    private static JButton ubutton = new JButton("Update");
 
     public Updater(){
         panel.add(ubutton);
@@ -45,17 +46,27 @@ public class Updater implements ActionListener
         frame.setVisible(true);
     }
 
-    public String geteventtexString(){
+    public static JButton getuButton(){
+        return ubutton;
+    }
+    public void visiblesetf(){
+        frame.setVisible(false);
+    }
+    public void visiblesett(){
+        frame.setVisible(true);
+    }
+
+    public static String geteventtexString(){
         String eventtext = eventfield.getText();
         return eventtext;
         
     }
-    public String getdurationtexString(){
+    public static String getdurationtexString(){
         String durationtext = durationfield.getText();
         return durationtext;
         
     }
-    public String getpriorString(){
+    public static String getpriorString(){
         String prioritydroptext = (String) prioritydropdownBox.getSelectedItem();
         return prioritydroptext;
         
@@ -63,11 +74,6 @@ public class Updater implements ActionListener
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()== ubutton){
-            new Menu();
-            frame.dispose();
-
-        }
         if(e.getSource()== prioritydropdownBox){
             System.out.println(prioritydropdownBox.getSelectedIndex());
         }

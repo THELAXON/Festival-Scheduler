@@ -2,6 +2,6 @@ public class Codedriver
 {
     public static void main(String[] args)
     {
-        new Updater();
+        new Menu();
     }
 }
