@@ -24,6 +24,7 @@ public class Menu implements ActionListener
     DefaultTableModel model = new DefaultTableModel(data,columns) ;
     private JTable  timetable = new JTable(model);
     int count = 0;
+    int y = 0;
     private JButton ubutton = Updater.getuButton();
     //private JButton startbutton = Start.getuButton();
     public Menu(){
