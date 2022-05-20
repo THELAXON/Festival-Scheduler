@@ -4,9 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.time.LocalTime;
-
-
-
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Menu implements ActionListener
 {
@@ -22,7 +23,8 @@ public class Menu implements ActionListener
     private JPanel tablepanel = new JPanel();
     private JButton ebutton = new JButton("Edit");
     private JButton sbutton = new JButton("Sort");
-    private String[] columns = {"Event","Duration","Break","Priority","Start Time"};
+    private JButton fbutton = new JButton("File");
+    private String[] columns = {"Event","Duration","Break","Priority","Start Time","End Time"};
     private static String[][] data = new String[rowcount][5];
     DefaultTableModel model = new DefaultTableModel(data,columns) ;
     private JTable  timetable = new JTable(model);
@@ -30,19 +32,22 @@ public class Menu implements ActionListener
     int timecount = 0;
     private JButton ubutton = Updater.getuButton();
     public Menu(){
-        ubutton.addActionListener(ubuttonlistener);
         update.visiblesetf();
+        ebutton.addActionListener(this);
+        bpanel.add(sbutton);
+        bpanel.add(ebutton);
+        bpanel.add(fbutton);
+        sbutton.addActionListener(sbuttonlistener);
+        ubutton.addActionListener(ubuttonlistener);
+        fbutton.addActionListener(fbuttonlistener);
+        ebutton.setBounds(80,0,100,25);
+        sbutton.setBounds(180,0,100,25);
+        fbutton.setBounds(280,0,100,25);
         tablepanel.add(timetable);
         tablepanel.add(new JScrollPane(timetable));
         model.setColumnIdentifiers(columns);
-        bpanel.add(ebutton);
-        ebutton.addActionListener(this);
-        ebutton.setBounds(130,0,100,25);
-        bpanel.add(sbutton);
-        sbutton.addActionListener(sbuttonlistener);
-        sbutton.setBounds(230,0,100,25);
-        bpanel.setLayout(null);
         tablepanel.setBounds(0,0,450,300);
+        bpanel.setLayout(null);
         bpanel.setBounds(0,400,500,100);
         frame.add(bpanel);
         frame.add(tablepanel);
@@ -90,6 +95,44 @@ public class Menu implements ActionListener
                 }
 
                 System.out.println(Arrays.deepToString(data));
+            }
+        }
+    };
+    ActionListener fbuttonlistener = new ActionListener()
+    {
+        @Override
+        public void actionPerformed(ActionEvent e) 
+        {
+            if(e.getSource()== fbutton)
+            {
+                int y = 0;
+
+                String file = "demo.csv";
+                String line = "";
+                try 
+                {
+                    BufferedReader reader = new BufferedReader(new FileReader(file));
+                    while((line = reader.readLine()) != null)
+                    {
+                        String[] values = line.split(",");
+                        data[y][0] = values[0];
+                        data[y][1] = values[1];
+                        data[y][2] = values[2];
+                        data[y][3] = values[3];
+                        model.setValueAt(data[y][0],y,0);
+                        model.setValueAt(data[y][1],y,1);
+                        model.setValueAt(data[y][2],y,2);
+                        model.setValueAt(data[y][3],y,3);
+                        y++;
+                    }
+                } catch (FileNotFoundException p) 
+                {
+                    p.printStackTrace();
+                } catch (IOException p) 
+                {
+                    p.printStackTrace();
+                }
+                
             }
         }
     };
