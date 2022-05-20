@@ -11,10 +11,12 @@ public class Updater implements ActionListener
     private JFrame frame = new JFrame("Festival Scheduling Updater");
     private JPanel panel = new JPanel();
     private JLabel eventform = new JLabel("Event Form");
-    private JLabel eventlabel = new JLabel("Event:");
+    private JLabel eventlabel = new JLabel("Event Name:");
     private static JTextField  eventfield = new JTextField();
-    private JLabel durationlabel = new JLabel("Duration:");
-    private static JTextField  durationfield = new JTextField("in mins");
+    private JLabel breaklabel = new JLabel("Break(mins):");
+    private static JTextField  breakfield = new JTextField();
+    private JLabel durationlabel = new JLabel("Duration(mins):");
+    private static JTextField  durationfield = new JTextField();
     private JLabel prioritylabel = new JLabel("Priority:");
     private static String[] prioritynum = {"1","2","3","4","5","6"};
     private static JComboBox<String> prioritydropdownBox = new JComboBox<>(prioritynum);
@@ -26,16 +28,20 @@ public class Updater implements ActionListener
         panel.add(eventform);
         panel.add(eventlabel);
         panel.add(durationlabel);
+        panel.add(breaklabel);
         panel.add(prioritylabel);
         panel.add(eventfield);
         panel.add(durationfield);
+        panel.add(breakfield);
         panel.add(prioritydropdownBox);
-        eventform.setBounds(200,50,100,75);
-        eventlabel.setBounds(125,150,75,25);
-        durationlabel.setBounds(125,200,75,25);
-        prioritylabel.setBounds(125,250,75,25);
-        eventfield.setBounds(210,150,200,25);
-        durationfield.setBounds(210,200,100,25);
+        eventform.setBounds(200,25,100,75);
+        eventlabel.setBounds(120,100,75,25);
+        durationlabel.setBounds(120,150,100,25);
+        breaklabel.setBounds(120,200,100,25);
+        prioritylabel.setBounds(120,250,75,25);
+        eventfield.setBounds(210,100,150,25);
+        durationfield.setBounds(210,150,100,25);
+        breakfield.setBounds(210,200,100,25);
         prioritydropdownBox.setBounds(210,250,50,25);
         ubutton.setBounds(180,300,100,25);
         panel.setLayout(null);
@@ -61,9 +67,14 @@ public class Updater implements ActionListener
         return eventtext;
         
     }
-    public static String getdurationtexString(){
+    public static String getdurationString(){
         String durationtext = durationfield.getText();
         return durationtext;
+        
+    }
+    public static String getbreakString(){
+        String breaktext = breakfield.getText();
+        return breaktext;
         
     }
     public static String getpriorString(){
