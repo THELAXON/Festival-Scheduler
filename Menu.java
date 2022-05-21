@@ -12,9 +12,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * This is the main menu for the scheduler where the jtable is presented with all the start times and end times of the shows.
+ * The other classes are linked to the menu as the menu would need to know information based on the action listener given in other jframes of other classes
+ * This class contains 5 buttons:
+ * Edit = Allows the user to update the information for the rows
+ * Sort = When the user has filled the table the sorting function will arrange and give the start time and end time of shows
+ * Change = Allows the user to update specific field based on the row and column
+ * Import = Files can be read and inserted into the jtable to be sorted
+ * Export = A file is created and appended with the information stored in the jtable
+ **/
+
 public class Menu implements ActionListener
 {
-
     private Updater update = new Updater();
     private Change change = new Change();
     static int rowcount = Integer.parseInt(Start.geteventtexString());
@@ -70,11 +80,9 @@ public class Menu implements ActionListener
         frame.setResizable(false);
         frame.setVisible(true);
     }
-
     public void visiblesetf(){
         frame.setVisible(false);
     }
-
     @Override
     public void actionPerformed(ActionEvent e) 
     {
@@ -84,7 +92,6 @@ public class Menu implements ActionListener
             
         }
     }
-     
     ActionListener sbuttonlistener = new ActionListener()
     {
         @Override

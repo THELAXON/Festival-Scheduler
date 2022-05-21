@@ -1,10 +1,15 @@
 import javax.swing.*;
-//import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.util.Arrays;
 
-
+/**
+ * This class is the updater class for the scheduler
+ * This class has multiple jtextfields:
+ * Event name = To get the name of the event and put it as the first value in the jtable
+ * Duration(mins) = To get the time value in minutes for how long that specific event runs for
+ * Break(mins) = This considers how much time is needed after the event to sort things in the venue
+ * priority = The user enters a priority for the event that takes place so when sorting it uses the priority as a key in sorting it
+ **/
 public class Updater implements ActionListener
 {
 

@@ -1,9 +1,16 @@
 import javax.swing.*;
-//import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.util.Arrays;
 
+
+/**
+ * This class is the Change class where the user gets to change specicific values in the jtable
+ * This class has multiple jtextfields:
+ * Row and column = Takes the specific row and column that needs to be changed.
+ * change to field = Grants the user the input they desire to be changed in the jtable
+ * The class has a single jbutton:
+ * Update = Menu class uses the values given to make appropriate changes in the jtable
+ **/
 
 public class Change implements ActionListener
 {

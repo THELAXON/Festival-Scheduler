@@ -1,9 +1,13 @@
 import javax.swing.*;
-//import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.util.Arrays;
 
+/**
+ * This class is the start class where the person enters the start time where 1 jtextfield is for the hour and the second for the minutes
+ * The Number of events is the second jtextfield to know the number of events that will take place on the day so appropriate number of rows are inserted into the jtable
+ * This class has a single button:
+ * Update = This button is linked to menu class and will take the number of events as a value of this class as input
+ **/
 
 public class Start implements ActionListener
 {
@@ -11,7 +15,7 @@ public class Start implements ActionListener
     private JFrame frame = new JFrame("Festival Scheduling Updater");
     private JPanel panel = new JPanel();
     private JLabel welcome = new JLabel("Welcome");
-    private JLabel Headliner = new JLabel("Headliner start Time:");
+    private JLabel Headliner = new JLabel("Headliner Time:");
     private static JTextField  Headlinerhourfield = new JTextField();
     private JLabel dot = new JLabel(":");
     private static JTextField  Headlinerminfield = new JTextField();
