@@ -5,9 +5,12 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.time.LocalTime;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Menu implements ActionListener
 {
@@ -21,10 +24,11 @@ public class Menu implements ActionListener
     private JFrame frame = new JFrame("Festival Scheduling Timetable");
     private JPanel bpanel = new JPanel();
     private JPanel tablepanel = new JPanel();
-    private JButton ebutton = new JButton("Edit");
-    private JButton sbutton = new JButton("Sort");
-    private JButton fbutton = new JButton("File");
+    private JButton editbutton = new JButton("Edit");
+    private JButton sortbutton = new JButton("Sort");
+    private JButton importbutton = new JButton("Import");
     private JButton cbutton = new JButton("Change");
+    private JButton exportbutton = new JButton("Export");
     private String[] columns = {"Event","Duration","Break","Priority","Start Time","End Time"};
     private static String[][] data = new String[rowcount][6];
     DefaultTableModel model = new DefaultTableModel(data,columns) ;
@@ -36,20 +40,23 @@ public class Menu implements ActionListener
     public Menu(){
         update.visiblesetf();
         change.visiblesetf();
-        ebutton.addActionListener(this);
-        bpanel.add(sbutton);
-        bpanel.add(ebutton);
-        bpanel.add(fbutton);
+        bpanel.add(sortbutton);
+        bpanel.add(editbutton);
+        bpanel.add(importbutton);
         bpanel.add(cbutton);
-        sbutton.addActionListener(sbuttonlistener);
+        bpanel.add(exportbutton);
+        editbutton.addActionListener(this);
+        sortbutton.addActionListener(sbuttonlistener);
         ubutton.addActionListener(ubuttonlistener);
         cbutton.addActionListener(cbuttonlistener);
         changebutton.addActionListener(changebuttonlistener);
-        fbutton.addActionListener(fbuttonlistener);
-        ebutton.setBounds(35,0,100,25);
-        sbutton.setBounds(135,0,100,25);
-        fbutton.setBounds(235,0,100,25);
-        cbutton.setBounds(335,0,100,25);
+        importbutton.addActionListener(fbuttonlistener);
+        exportbutton.addActionListener(ebuttonlistener);
+        editbutton.setBounds(80,0,100,25);
+        sortbutton.setBounds(180,0,100,25);
+        cbutton.setBounds(280,0,100,25);
+        importbutton.setBounds(130,25,100,25);
+        exportbutton.setBounds(230,25,100,25);
         tablepanel.add(timetable);
         tablepanel.add(new JScrollPane(timetable));
         model.setColumnIdentifiers(columns);
@@ -71,7 +78,7 @@ public class Menu implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-        if(e.getSource()== ebutton){
+        if(e.getSource()== editbutton){
             update.visiblesett();
             frame.setVisible(false);
             
@@ -83,7 +90,7 @@ public class Menu implements ActionListener
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            if(e.getSource()== sbutton)
+            if(e.getSource()== sortbutton)
             {
                 sortdata(data);
                 for(int y=0; y<rowcount;)
@@ -112,7 +119,7 @@ public class Menu implements ActionListener
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            if(e.getSource()== fbutton)
+            if(e.getSource()== importbutton)
             {
                 int y = 0;
 
@@ -134,6 +141,7 @@ public class Menu implements ActionListener
                         model.setValueAt(data[y][3],y,3);
                         y++;
                     }
+                    reader.close();
                 } catch (FileNotFoundException p) 
                 {
                     p.printStackTrace();
@@ -141,7 +149,27 @@ public class Menu implements ActionListener
                 {
                     p.printStackTrace();
                 }
-                
+
+            }
+        }
+    };
+
+    ActionListener ebuttonlistener = new ActionListener()
+    {
+        @Override
+        public void actionPerformed(ActionEvent e) 
+        {
+            if(e.getSource()== exportbutton)
+            {
+                for(int y=0;y<rowcount;)
+                {
+                    String eventtitle = data[y][0];
+                    String start = data[y][4];
+                    String finish = data[y][5];
+                    save(eventtitle,start,finish);
+                    y++;
+                }
+
             }
         }
     };
@@ -251,5 +279,23 @@ public class Menu implements ActionListener
                 }
             }
         }
+    }
+
+    public static void save(String eventtitle,String start,String finish)
+    {
+        String exporter = "export.csv";
+                try 
+                {
+                    FileWriter fw = new FileWriter(exporter,true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    PrintWriter pw = new PrintWriter(bw);
+                    
+                    pw.println(eventtitle+","+start+","+finish);
+                    pw.flush();
+                    pw.close();
+                }  catch (IOException p) 
+                {
+                    p.printStackTrace();
+                }
     }
 }
