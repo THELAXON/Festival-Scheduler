@@ -25,7 +25,7 @@ public class Menu implements ActionListener
     private JButton sbutton = new JButton("Sort");
     private JButton fbutton = new JButton("File");
     private String[] columns = {"Event","Duration","Break","Priority","Start Time","End Time"};
-    private static String[][] data = new String[rowcount][5];
+    private static String[][] data = new String[rowcount][6];
     DefaultTableModel model = new DefaultTableModel(data,columns) ;
     private JTable  timetable = new JTable(model);
     int count = 0;
@@ -91,6 +91,7 @@ public class Menu implements ActionListener
                 for(int y=0; y<rowcount;)
                 {
                     model.setValueAt(data[y][4],y,4);
+                    model.setValueAt(data[y][5],y,5);
                     y++;
                 }
 
@@ -165,14 +166,20 @@ public class Menu implements ActionListener
     {
         LocalTime starttime = LocalTime.of(headlinerhour,headlinermin);
         System.out.println(starttime); 
-
-        for(int g=0; g<rowcount;)
+        data[0][4] = starttime.toString();
+        LocalTime endadd = starttime.plusMinutes(Integer.parseInt(data[0][1]));
+        data[0][5] = endadd.toString();
+        starttime = endadd;
+        LocalTime breakadd = starttime.plusMinutes(Integer.parseInt(data[0][2]));
+        starttime = breakadd;
+        for(int g=1; g<rowcount;)
         {
-        int finaladd=Integer.parseInt(data[g][1]) + Integer.parseInt(data[g][2]);
-        LocalTime updatedtime = starttime.plusMinutes(finaladd);
-        starttime = updatedtime;
-        data[g][4] = updatedtime.toString();
-        g++;
+            data[g][4] = starttime.toString();
+            LocalTime endaddtime = starttime.plusMinutes(Integer.parseInt(data[g][1]));
+            data[g][5] = endaddtime.toString();
+            LocalTime breakaddtime = starttime.plusMinutes(Integer.parseInt(data[g][2]));
+            starttime = breakaddtime;
+            g++;
         }
 
 
