@@ -13,7 +13,7 @@ public class Menu implements ActionListener
 {
 
     private Updater update = new Updater();
-    //private Start start = new Start();
+    private Change change = new Change();
     static int rowcount = Integer.parseInt(Start.geteventtexString());
     static int start = Integer.parseInt(Start.geteventtexString());
     private int headlinerhour = Integer.parseInt(Start.getheadlinerhourString());
@@ -24,25 +24,32 @@ public class Menu implements ActionListener
     private JButton ebutton = new JButton("Edit");
     private JButton sbutton = new JButton("Sort");
     private JButton fbutton = new JButton("File");
+    private JButton cbutton = new JButton("Change");
     private String[] columns = {"Event","Duration","Break","Priority","Start Time","End Time"};
     private static String[][] data = new String[rowcount][6];
     DefaultTableModel model = new DefaultTableModel(data,columns) ;
     private JTable  timetable = new JTable(model);
+    private JButton ubutton = Updater.getuButton();
+    private JButton changebutton = Change.getcButton();
     int count = 0;
     int timecount = 0;
-    private JButton ubutton = Updater.getuButton();
     public Menu(){
         update.visiblesetf();
+        change.visiblesetf();
         ebutton.addActionListener(this);
         bpanel.add(sbutton);
         bpanel.add(ebutton);
         bpanel.add(fbutton);
+        bpanel.add(cbutton);
         sbutton.addActionListener(sbuttonlistener);
         ubutton.addActionListener(ubuttonlistener);
+        cbutton.addActionListener(cbuttonlistener);
+        changebutton.addActionListener(changebuttonlistener);
         fbutton.addActionListener(fbuttonlistener);
-        ebutton.setBounds(80,0,100,25);
-        sbutton.setBounds(180,0,100,25);
-        fbutton.setBounds(280,0,100,25);
+        ebutton.setBounds(35,0,100,25);
+        sbutton.setBounds(135,0,100,25);
+        fbutton.setBounds(235,0,100,25);
+        cbutton.setBounds(335,0,100,25);
         tablepanel.add(timetable);
         tablepanel.add(new JScrollPane(timetable));
         model.setColumnIdentifiers(columns);
@@ -70,6 +77,7 @@ public class Menu implements ActionListener
             
         }
     }
+     
     ActionListener sbuttonlistener = new ActionListener()
     {
         @Override
@@ -157,6 +165,34 @@ public class Menu implements ActionListener
                 model.setValueAt(data[count][2],count,2);
                 model.setValueAt(data[count][3],count,3);
                 count++;
+                System.out.println(Arrays.deepToString(data));
+            }
+        }
+    };
+    ActionListener cbuttonlistener = new ActionListener()
+    {
+        @Override
+        public void actionPerformed(ActionEvent e) 
+        {
+        if(e.getSource()== cbutton){
+            change.visiblesett();
+            frame.setVisible(false);
+            
+        }
+        }
+    };
+    ActionListener changebuttonlistener = new ActionListener()
+    {
+        @Override
+        public void actionPerformed(ActionEvent e) 
+        {
+            if(e.getSource()== changebutton)
+            {
+                frame.setVisible(true);
+                int row = Integer.parseInt(Change.getrowchangefieldString());
+                int col = Integer.parseInt(Change.getcolchangefieldString());
+                data[row][col] = Change.getchangetextfieldString();
+                model.setValueAt(data[row][col],row,col);
                 System.out.println(Arrays.deepToString(data));
             }
         }
